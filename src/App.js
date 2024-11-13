@@ -9,10 +9,18 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/*  route for home */}
         <Route path="/" element={<Home />} />
-        <Route path="/Login" element={<Login />} />
+        
+        {/*  route for login */}
+        <Route path="/login" element={<Login />} />
+        
+        {/*  route for register */}
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        
+        {/* Protected route for dashboard */}
+        <Route
+          path="/dashboard" element={ <Dashboard /> }/>
       </Routes>
     </Router>
   );

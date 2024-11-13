@@ -1,0 +1,71 @@
+.dashboard {
+    display: flex;
+    flex-direction: row;  /* Arrange Navbar and content side by side */
+    margin: 20px;
+  }
+  
+  .navbar {
+    width: 250px; /* Set the width of the sidebar */
+
+    height: 100vh; /* Make the navbar take the full height of the viewport */
+
+    display: flex;
+    flex-direction: column;
+
+
+  }
+  
+  .content {
+    flex: 1; /* Allow content to take up the rest of the available space */
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;  /* Space between the sidebar and content */
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  li {
+    background-color: #ffffff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  li:hover {
+    background-color: #f1f1f1;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

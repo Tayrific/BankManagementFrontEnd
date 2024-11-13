@@ -1,0 +1,23 @@
+/* Navbar.css */
+.navbar {
+    width: 200px;
+    height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .profile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .navbar .MuiListItem-root {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar .MuiListItem-root:hover {
+    background-color: #e0e0e0;
+  }

@@ -1,38 +1,67 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Container, Alert } from '@mui/material';
-import { loginUser } from '../services/api';
+import { useNavigate } from 'react-router-dom';  // For redirection after login
+import { TextField, Button, Typography, Box } from '@mui/material';  // Material UI for styling
+import {jwtDecode} from 'jwt-decode';
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+// Login Component
+const Login = () => {
+  const [email, setEmail] = useState('');  // State for email
+  const [password, setPassword] = useState('');  // State for password
+  const [error, setError] = useState('');  // State for error message
+  const navigate = useNavigate();  // For redirecting after successful login
 
-  const handleLogin = async (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // Basic validation
+    if (!email || !password) {
+      setError('Please fill in both fields');
+      return;
+    }
+  
     try {
-        const loginData = { email, password };
-        const response = await loginUser(loginData);
-        alert("Login successful!");
-        console.log("Login successful:", response.data);
-        // Redirect to dashboard or main page on successful login
-      } catch (error) {
-        // Check if the error has a response from the server
-        if (error.response) {
-          setErrorMessage(error.response.data); // Backend error message
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+  
+      if (response.ok) {
+        const data = await response.text();  // Get the response as text (if it's just a token)
+        if (data) {
+          localStorage.setItem('authToken', data);  // Save token
+          console.log('Login successful');
+          // Log the received JWT token
+          console.log("Received JWT Token:", data);
+          
+          // Decode the token and log the decoded payload
+          const decodedToken = jwtDecode(data);
+          console.log("Decoded Token:", decodedToken);
+          navigate('/dashboard');  // Redirect to dashboard
         } else {
-          setErrorMessage("An unexpected error occurred. Please try again.");
+          setError('No token received');
         }
+      } else {
+        setError('Invalid email or password');
       }
+    } catch (error) {
+      setError('Error occurred during login');
+      console.error(error);
+    }
   };
-
+  
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" gutterBottom>Login</Typography>
-      
-      {/* Show error message if present */}
-      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-      
-      <form onSubmit={handleLogin}>
+    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
+      <Typography variant="h4" align="center">Login</Typography>
+      {error && <Typography color="error">{error}</Typography>}
+
+      <form onSubmit={handleSubmit}>
         <TextField
           fullWidth
           label="Email"
@@ -41,6 +70,7 @@ function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        
         <TextField
           fullWidth
           label="Password"
@@ -49,12 +79,19 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button type="submit" variant="contained" color="primary">
+        
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          type="submit"
+          sx={{ mt: 2 }}
+        >
           Login
         </Button>
       </form>
-    </Container>
+    </Box>
   );
-}
+};
 
 export default Login;

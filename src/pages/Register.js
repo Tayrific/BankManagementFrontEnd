@@ -1,50 +1,60 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Container, Alert } from '@mui/material';
-import { registerUser } from '../services/api';
+import { TextField, Button, Typography, Box } from '@mui/material';  // MUI for styling
+import { useNavigate } from 'react-router-dom';  // Navigation after registration
 
-function Register() {
+const RegisterForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');  // State variable for phone number
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [error, setError] = useState('');
+  
+  const navigate = useNavigate();  // To navigate after registration
 
-  const handleRegister = async (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(''); // Clear previous errors
-    setSuccessMessage(''); // Clear any previous success message
+
+    // Basic validation
+    if (!email || !password || !firstName || !lastName || !phoneNumber) {
+      setError('Please fill out all fields');
+      return;
+    }
 
     try {
-      const userData = { firstName, lastName, email, phoneNumber, password };
-      const response = await registerUser(userData);
-      setSuccessMessage("Registration successful! Please log in.");
-      console.log("Registration successful:", response.data);
-      // Clear form fields after successful registration
-      setFirstName('');
-      setLastName('');
-      setEmail('');
-      setPhoneNumber('');  
-      setPassword('');
-    } catch (error) {
-      if (error.response) {
-        setErrorMessage(error.response.data); // Display backend error message
+      const response = await fetch('http://localhost:8080/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+          phoneNumber,
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Registration successful');
+        navigate('/login');  // Redirect to login page after successful registration
       } else {
-        setErrorMessage("An unexpected error occurred. Please try again.");
+        setError('Registration failed');
       }
+    } catch (error) {
+      setError('Error occurred during registration');
+      console.error(error);
     }
   };
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" gutterBottom>Register</Typography>
-      
-      {/* Show success or error message if present */}
-      {successMessage && <Alert severity="success">{successMessage}</Alert>}
-      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
+      <Typography variant="h4" align="center">Register</Typography>
+      {error && <Typography color="error">{error}</Typography>}
 
-      <form onSubmit={handleRegister}>
+      <form onSubmit={handleSubmit}>
         <TextField
           fullWidth
           label="First Name"
@@ -68,14 +78,6 @@ function Register() {
           onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
-            fullWidth
-            label="Phone Number"
-            type="tel"  // Changed to 'tel' for phone number input
-            margin="normal"
-            value={phoneNumber}  // Assuming you have a state variable named phoneNumber
-            onChange={(e) => setPhoneNumber(e.target.value)}  // Update state to capture phone number
-            />
-        <TextField
           fullWidth
           label="Password"
           type="password"
@@ -83,12 +85,26 @@ function Register() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button type="submit" variant="contained" color="primary">
+        <TextField
+          fullWidth
+          label="Phone Number"
+          margin="normal"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          type="submit"
+          sx={{ mt: 2 }}
+        >
           Register
         </Button>
       </form>
-    </Container>
+    </Box>
   );
-}
+};
 
-export default Register;
+export default RegisterForm;
