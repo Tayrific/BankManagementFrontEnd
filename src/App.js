@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -20,7 +21,13 @@ function App() {
         
         {/* Protected route for dashboard */}
         <Route
-          path="/dashboard" element={ <Dashboard /> }/>
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

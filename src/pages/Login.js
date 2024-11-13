@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // For redirection after login
 import { TextField, Button, Typography, Box } from '@mui/material';  // Material UI for styling
-import {jwtDecode} from 'jwt-decode';
 
 // Login Component
 const Login = () => {
@@ -36,13 +35,8 @@ const Login = () => {
         const data = await response.text();  // Get the response as text (if it's just a token)
         if (data) {
           localStorage.setItem('authToken', data);  // Save token
-          console.log('Login successful');
-          // Log the received JWT token
-          console.log("Received JWT Token:", data);
-          
-          // Decode the token and log the decoded payload
-          const decodedToken = jwtDecode(data);
-          console.log("Decoded Token:", decodedToken);
+          console.log('Login successful');        
+
           navigate('/dashboard');  // Redirect to dashboard
         } else {
           setError('No token received');

@@ -2,7 +2,7 @@
 .navbar {
     width: 200px;
     height: 100vh;
-    background-color: #f5f5f5;
+    background-color: #522e38;
     padding: 20px;
     box-sizing: border-box;
   }
@@ -19,5 +19,5 @@
   }
   
   .navbar .MuiListItem-root:hover {
-    background-color: #e0e0e0;
+    background-color: #f9bec7;
   }

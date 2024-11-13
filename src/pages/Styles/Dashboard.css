@@ -1,14 +1,14 @@
+
+
 .dashboard {
     display: flex;
     flex-direction: row;  /* Arrange Navbar and content side by side */
-    margin: 20px;
+    background-color: #522e38;
   }
   
   .navbar {
-    width: 250px; /* Set the width of the sidebar */
-
-    height: 100vh; /* Make the navbar take the full height of the viewport */
-
+    width: 250px; 
+    height: 100vh; 
     display: flex;
     flex-direction: column;
 
@@ -18,54 +18,105 @@
   .content {
     flex: 1; /* Allow content to take up the rest of the available space */
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #602437;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     margin-left: 20px;  /* Space between the sidebar and content */
   }
   
   h1 {
+    text-align: center;
     font-size: 2rem;
-    color: #333;
+    color: #d1d1d1;
     margin-bottom: 20px;
   }
   
-  h2 {
-    font-size: 1.5rem;
-    color: #444;
-    margin-bottom: 10px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
   li {
-    background-color: #ffffff;
+    background-color: #ffe0e9 !important;
     margin: 10px 0;
-    padding: 10px;
     border-radius: 5px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
     justify-content: space-between;
+
+  }
+  
+
+  .account-list-container {
+    display: flex;
+    flex-wrap: wrap;  /* Ensures cards wrap to the next line if there isn't enough space */
+    gap: 20px;        
+    justify-content: center;  
+
+    padding: 20px;
+  }
+  
+  
+  .account-card {
+    width: 350px;
+    height: 200px;                 
+    padding: 20px;
+    border-radius: 15px;            
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);  
+    background: #ffe0e9; 
+    color: rgb(63, 59, 59);                   
+    display: flex;
+    flex-direction: column;         
+    justify-content: space-between; 
+    font-family: 'Arial', sans-serif; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;  /* Added transition for background-color */
+}
+
+  .account-card:hover {
+    transform: translateY(-10px); 
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); 
+    background-color: #c498a8; 
+  }
+  
+  .account-card h4 {
+    margin: 0;
+    text-align: right;
+  }
+  
+  .account-card p {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  .account-card .account-number {
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;  /* lowercase 'text-align' */
+    margin-bottom: 10px; /* optional, for better spacing */
+}
+
+  .modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .topBar {
+    display: flex;
+    justify-content:space-between;
     align-items: center;
+    margin-bottom: 20px;
   }
+
+  .topBar h1 {
+    flex: 1;
+    text-align: center;
+
+
+  }
+
   
-  li:hover {
-    background-color: #f1f1f1;
-  }
-  
-  button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
+
+
+
+
   

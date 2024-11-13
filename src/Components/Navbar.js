@@ -9,6 +9,11 @@ import './Styles/Navbar.css';
 const Navbar = () => {
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem('authToken'); // Remove token from localStorage
+    navigate('/login');  // Redirect to the login page
+  };
+
   const handleNavigation = (path) => {
     navigate(path);
   };
@@ -30,10 +35,10 @@ const Navbar = () => {
           <SettingsIcon />
           <ListItemText primary="Settings" />
         </ListItem>   
-        <ListItem button onClick={() => handleNavigation('/dashboard/logout')}>
+        <ListItem button onClick={handleLogout}>
           <LogoutIcon />
           <ListItemText primary="Log out" />
-        </ListItem>    
+        </ListItem>
       </List>
     </div>
   );
